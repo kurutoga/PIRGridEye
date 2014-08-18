@@ -1,0 +1,17 @@
+Panasonic PIR Grideye with PIC24F04KA200 Microcontroller.
+---------------------------------------------------------
+
+
+This source code needs the following dependencies realized:
+
+	1> python 2.6+
+	2> pygame
+	4> pylz4
+	5> pika
+	6> erlang (for pika)
+	7> opencv and pycv2 for cv!
+	
+	
+(c) 2014. WSU CASAS. 
+Author: Bishu Das
+	
