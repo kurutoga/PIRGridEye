@@ -40,57 +40,44 @@ output : no returns. saves image from PIR to gg#.jpg for all # in int.
 def receiving(ser):
     global count
     while(True):
-		try:
-			ser.read()
-			ser.read()
-			ser.read()
-			lsb=ser.read()
-			msb=ser.read()
-			therm=int((ord(msb)<<8)+ord(lsb))
-			celTherm=therm*0.0625
-			count+=1
-			print("AVG TEMP: "+str(celTherm))
-			for i in range(64):
-				try:
-					lsb=ser.read()
-					msb=ser.read()
-					temp=int((ord(msb)<<8)+ord(lsb))
-					while (temp>2047):
-						temp = 2048-temp
-					celcius=0.25*temp
-					if (celcius>0):
-						fl.write(str(celcius))
-						fl.write(",")
-						print(celcius)
-					else:
-						return
-					if(int(celcius)>int(celTherm)):
-						pixels[7-(i%8),7-(i/8)]=(200,0,0)
-					elif(int(celcius)<int(celTherm)):
-						pixels[7-(i%8),7-(i/8)]=(0,0,200)
-					else:
-						pixels[7-(i%8),7-(i/8)]=(0,100,0)
-				except Exception, e:
-					e.args += (color,temp,)
-					raise
-			newim = img.resize((500,500), Image.ANTIALIAS)
-			newim.save('gg'+str(count)+'.jpg')
-			fl.write("\n\n\n")
-		except Exception, e:
-			ser.open()
-			ser.write('~')
-			ser.write('~')
-			ser.write('*')
-			pass
+        ser.read()
+		ser.read()
+		ser.read()
+		lsb=ser.read()
+		msb=ser.read()
+		therm=int((ord(msb)<<8)+ord(lsb))
+		celTherm=therm*0.0625
+		count+=1
+		print("AVG TEMP: "+str(celTherm))
+		for i in range(64):
+			try:
+				lsb=ser.read()
+				msb=ser.read()
+				temp=int((ord(msb)<<8)+ord(lsb))
+				while (temp>2047):
+					temp = 2048-temp
+				celcius=0.25*temp
+				fl.write(str(celcius))
+				fl.write(",")
+				print(celcius)
+				if(int(celcius)>int(celTherm)):
+					pixels[7-(i%8),7-(i/8)]=(200,0,0)
+				elif(int(celcius)<int(celTherm)):
+					pixels[7-(i%8),7-(i/8)]=(0,0,200)
+				else:
+					pixels[7-(i%8),7-(i/8)]=(0,100,0)
+			except Exception, e:
+				e.args += (color,temp,)
+				raise
+		newim = img.resize((500,500), Image.ANTIALIAS)
+		newim.save('gg'+str(count)+'.jpg')
+		fl.write("\n\n\n")
     pass
 		
 def exitSafe(ser):
-	try:
-		ser.write('~')
-		ser.close();
-		fl.close()
-	except:
-		pass
+	ser.write('~')
+	ser.close();
+	fl.close()
 
 
 """
