@@ -56,13 +56,13 @@ def receiving(ser):
 				temp=int((ord(msb)<<8)+ord(lsb))
 				while (temp>2047):
 					temp = 2048-temp
-				celcius=0.25*temp
-				fl.write(str(celcius))
+				celsius=0.25*temp
+				fl.write(str(celsius))
 				fl.write(",")
-				print(celcius)
-				if(int(celcius)>int(celTherm)):
+				print(celsius)
+				if(int(celsius)>int(celTherm)):
 					pixels[7-(i%8),7-(i/8)]=(200,0,0)
-				elif(int(celcius)<int(celTherm)):
+				elif(int(celsius)<int(celTherm)):
 					pixels[7-(i%8),7-(i/8)]=(0,0,200)
 				else:
 					pixels[7-(i%8),7-(i/8)]=(0,100,0)
