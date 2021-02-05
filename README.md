@@ -6,7 +6,3 @@ We use the USB I2C bridge to connect the PIC24F04KA200  to the computer. The out
 
 NOTE: The RGB is not scaled
 
-
-
-
-(C) Biswaranjan Das 2014.
